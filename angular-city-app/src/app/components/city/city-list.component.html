@@ -1,0 +1,72 @@
+  <div class="container">
+    <div class="row">
+        <div class="col-xl-12 mb-3 mb-lg-5">
+            <div class="card">
+                <div class="d-flex card-header justify-content-between">
+                    <h2 class="me-3 mb-0">Cities List</h2>
+                    <input placeholder="Search" #input>
+                    <button mat-raised-button (click)="logout()">Logout</button>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <ng-container *ngIf="!isSearchActive">
+                            <li *ngFor="let city of paginatedCities" class="list-group-item pt-0">
+                              <div class="d-flex align-items-center">
+                                  <div class="flex-shrink-0 me-3">
+                                      <img src="{{city?.photo}}" alt="" class="avatar rounded-circle" />
+                                  </div>
+                                  <div class="flex-grow-1">
+                                      <h3 class="mb-0">{{city?.name}}</h3>
+                                      <p class="mb-0 text-muted">{{city?.name}}</p>
+                                  </div>
+                                  <div *ngIf="isAllowEditing" class="flex-shrink-0 text-end">
+                                      <button mat-raised-button (click)="openEditDialog(city)">
+                                          Edit
+                                      </button>
+                                  </div>
+                              </div>
+                            </li>
+                        </ng-container>
+                        <ng-container *ngIf="isSearchActive">
+                          <li *ngFor="let city of searchedCityList" class="list-group-item pt-0">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 me-3">
+                                    <img src="{{city?.photo}}" alt="" class="avatar rounded-circle" />
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h3 class="mb-0">{{city?.name}}</h3>
+                                    <p class="mb-0 text-muted">{{city?.name}}</p>
+                                </div>
+                                <div class="flex-shrink-0 text-end">
+                                    <button *ngIf="isAllowEditing" mat-raised-button (click)="openEditDialog(city)">
+                                        Edit
+                                    </button>
+                                </div>
+                            </div>
+                          </li>
+                          <li *ngIf="searchedCityList.length === 0" class="list-group-item pt-0">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1">
+                                    <h3 class="mb-0">No matching item found</h3>
+                                </div>
+                            </div>
+                          </li>
+                        </ng-container>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+  <mat-paginator *ngIf="cities.length > 0 && searchedCityList.length === 0"
+    (page)="handlePageEvent($event)"
+    [length]="length"
+    [pageSize]="pageSize"
+    [showFirstLastButtons]="showFirstLastButtons"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageIndex]="pageIndex"
+    aria-label="Select page">
+  </mat-paginator>
+ 

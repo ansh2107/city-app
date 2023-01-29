@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Edit {{dialogData.name}} City</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="dialogData.name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Photo Url</mat-label>
+        <input matInput [(ngModel)]="dialogData.photo">
+    </mat-form-field>
+    
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [disabled]="data.name === dialogData.name && data.photo === dialogData.photo" [mat-dialog-close]="dialogData" cdkFocusInitial>Save</button>
+</div>
